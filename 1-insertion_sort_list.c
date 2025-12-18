@@ -1,29 +1,41 @@
 #include "sort.h"
 
 /**
- * insertion_sort - sorts an array using Insertion sort
- * @array: array to sort
- * @size: size of the array
+ * insertion_sort_list - sorts a doubly linked list of integers
+ *                       using the Insertion sort algorithm
+ * @list: pointer to the head of the list
  */
-void insertion_sort(int *array, size_t size)
+void insertion_sort_list(listint_t **list)
 {
-	size_t i, j;
-	int key;
+	listint_t *curr, *tmp;
 
-	if (!array || size < 2)
+	if (!list || !*list || !(*list)->next)
 		return;
 
-	for (i = 1; i < size; i++)
+	curr = (*list)->next;
+	while (curr)
 	{
-		key = array[i];
-		j = i;
-
-		while (j > 0 && array[j - 1] > key)
+		tmp = curr;
+		while (tmp->prev && tmp->n < tmp->prev->n)
 		{
-			array[j] = array[j - 1];
-			j--;
-			print_array(array, size);
+			/* detach tmp */
+			tmp->prev->next = tmp->next;
+			if (tmp->next)
+				tmp->next->prev = tmp->prev;
+
+			/* move tmp backward */
+			tmp->next = tmp->prev;
+			tmp->prev = tmp->prev->prev;
+
+			if (tmp->prev)
+				tmp->prev->next = tmp;
+			else
+				*list = tmp;
+
+			tmp->next->prev = tmp;
+
+			print_list(*list);
 		}
-		array[j] = key;
+		curr = curr->next;
 	}
 }
