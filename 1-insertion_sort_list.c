@@ -1,4 +1,4 @@
-#include "sorting_algorithms.h"
+#include "sort.h"
 
 /**
  * insertion_sort - sorts an array using Insertion sort

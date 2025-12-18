@@ -1,4 +1,4 @@
-#include "sorting_algorithms.h"
+#include "sort.h"
 
 static void quick(int *array, int low, int high, size_t size);
 static int partition(int *array, int low, int high, size_t size);
